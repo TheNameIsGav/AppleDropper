@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour
 {
@@ -17,12 +18,12 @@ public class UI : MonoBehaviour
     {
         if(lives == 3)
         {
-            Object.Destroy(this.transform.GetChild(5).gameObject);
+            Object.Destroy(this.transform.GetChild(6).gameObject);
             lives--;
         } else 
         if (lives == 2)
         {
-            Object.Destroy(this.transform.GetChild(4).gameObject);
+            Object.Destroy(this.transform.GetChild(5).gameObject);
             lives--;
         } else 
         if (lives == 1)
@@ -30,6 +31,7 @@ public class UI : MonoBehaviour
             player.GetComponent<PlayerController>().GameOver();
             appleController.GetComponent<AppleController>().GameOver();
             this.transform.GetChild(3).gameObject.SetActive(false);
+            this.transform.GetChild(4).gameObject.SetActive(true);
             PlayerPrefs.SetInt("HighScore", player.GetComponent<PlayerController>().score);
 
             this.transform.GetChild(2).gameObject.SetActive(true);
@@ -56,6 +58,7 @@ public class UI : MonoBehaviour
     {
         this.transform.GetChild(2).gameObject.SetActive(false);
         this.transform.GetChild(3).gameObject.SetActive(false);
+        this.transform.GetChild(4).gameObject.SetActive(false);
         this.transform.GetChild(0).GetComponent<Text>().text = "High Score: " + PlayerPrefs.GetInt("HighScore").ToString();
     }
 
@@ -78,5 +81,10 @@ public class UI : MonoBehaviour
             internalScore = 666;
         }
         this.transform.GetChild(1).GetComponent<Text>().text = "Current Score: " + internalScore.ToString();
+    }
+
+    public void toMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
