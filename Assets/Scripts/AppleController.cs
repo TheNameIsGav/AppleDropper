@@ -14,6 +14,7 @@ public class AppleController : MonoBehaviour
     private bool doomMode = false;
     private bool doOnce = true;
     private Rigidbody2D rb;
+    private float gameTime;
     
 
     //Public Variables
@@ -53,6 +54,8 @@ public class AppleController : MonoBehaviour
         {
             rb.velocity = new Vector2(-speed, 0);
         }
+
+        gameTime = Time.time;
     }
 
     //Spawns apple when it receives a signal
@@ -63,8 +66,10 @@ public class AppleController : MonoBehaviour
             newApple.GetComponent<Apple>().speed = -1f;
         }
         else {
+            Debug.Log(Time.time - gameTime);
             GameObject newApple = Object.Instantiate(transform.GetChild(0), new Vector3(transform.position.x, transform.position.y - 2, 0), transform.rotation).gameObject;
-            newApple.GetComponent<Apple>().speed = Mathf.Max(-1 * (5f + (.1f * Time.time)), -60);
+            newApple.GetComponent<Apple>().speed = Mathf.Max(-1 * (5f + (.1f * (Time.time - gameTime))) - 5f, -60);
+            newApple.GetComponent<Rigidbody2D>().velocity = new Vector2(newApple.GetComponent<Rigidbody2D>().velocity.x, 0);
         }
     }
 

@@ -9,7 +9,6 @@ public class Apple : MonoBehaviour
 
     //Public Variables
     public float speed = -5f;
-    public GameObject uiPanel;
 
     // Start is called before the first frame update
     void Start()

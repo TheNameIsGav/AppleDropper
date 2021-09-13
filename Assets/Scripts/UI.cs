@@ -32,7 +32,9 @@ public class UI : MonoBehaviour
             appleController.GetComponent<AppleController>().GameOver();
             this.transform.GetChild(3).gameObject.SetActive(false);
             this.transform.GetChild(4).gameObject.SetActive(true);
-            PlayerPrefs.SetInt("HighScore", player.GetComponent<PlayerController>().score);
+            if (player.GetComponent<PlayerController>().score > PlayerPrefs.GetInt("HighScore")) {
+                PlayerPrefs.SetInt("HighScore", player.GetComponent<PlayerController>().score);
+            }
 
             this.transform.GetChild(2).gameObject.SetActive(true);
             audio.Stop();
